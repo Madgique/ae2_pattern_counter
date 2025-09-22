@@ -1,0 +1,115 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.0"
+}
+
+repositories {
+    maven {
+        name "Modmaven"
+        url "https://modmaven.dev/"
+    }
+    maven {
+        name "Wisp Forest"
+        url "https://maven.wispforest.io/"
+    }
+}
+
+configurations {
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+    
+    // Applied Energistics 2
+    modImplementation "appeng:appliedenergistics2-fabric:15.3.3"
+
+    implementation(project(path: ":common", configuration: "dev")) {
+        transitive = false
+    }
+    developmentFabric(project(path: ":common", configuration: "dev")) {
+        transitive = false
+    }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) {
+        transitive = false
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand mod_version: project.version,
+                mod_id: mod_id,
+                mod_display_name: mod_display_name,
+                mod_description: mod_description,
+                mod_authors: mod_authors,
+                mod_license: mod_license,
+                mod_class_name: mod_class_name,
+                mod_public_url: mod_public_url,
+                mod_issue_tracker_url: mod_issue_tracker_url,
+                mod_sources: mod_sources,
+                maven_group: maven_group,
+                minecraft_version: minecraft_version,
+                fabric_loader_version: fabric_loader_version,
+                fabric_api_version: fabric_api_version,
+                architectury_version: architectury_version,
+                curios_version: curios_version
+    }
+}
+
+shadowJar {
+    exclude "META-INF/mods.toml"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier.set("dev-shadow")
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier.set("fabric")
+}
+
+jar {
+    archiveClassifier.set("dev")
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenFabric(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                classifier null
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

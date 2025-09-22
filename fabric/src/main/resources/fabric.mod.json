@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_display_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_authors}"
+  ],
+  "contact": {
+    "homepage": "${mod_public_url}",
+    "issues": "${mod_issue_tracker_url}",
+    "sources": "${mod_sources}"
+  },
+  "license": "${mod_license}",
+  "icon": "assets/${mod_id}/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "${maven_group}.fabric.${mod_class_name}Fabric"
+    ],
+    "client": [
+      "${maven_group}.fabric.${mod_class_name}FabricClient"
+    ]
+  },
+  "mixins": [],
+  "accessWidener": "add_pattern_to_network_tool.accesswidener",
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=17",
+    "architectury": ">=${architectury_version}"
+  },
+  "suggests": {}
+}

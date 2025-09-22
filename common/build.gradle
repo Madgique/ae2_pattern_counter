@@ -1,0 +1,55 @@
+dependencies {
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+    
+    // ClothConfig for configuration GUI (includes AutoConfig)
+    modApi "me.shedaniel.cloth:cloth-config:${rootProject.cloth_config_version}"
+    
+    // Applied Energistics 2
+    modCompileOnly "appeng:appliedenergistics2-forge:15.3.3"
+    
+}
+
+architectury {
+    common(project.enabled_platforms.split(","))
+}
+
+configurations {
+    dev
+}
+
+loom {
+    mixin {
+        defaultRefmapName = "add_pattern_to_network_tool.refmap.json"
+    }
+    accessWidenerPath = file("src/main/resources/add_pattern_to_network_tool.accesswidener")
+}
+
+remapJar {
+    //remapAccessWidener = false
+}
+
+artifacts {
+    dev(jar)
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = rootProject.archives_base_name
+            // add all the jars that should be included when publishing to maven
+            artifact remapJar
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}

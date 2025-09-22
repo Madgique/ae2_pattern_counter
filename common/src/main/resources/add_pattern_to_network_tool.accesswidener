@@ -1,0 +1,10 @@
+accessWidener v2 named
+
+# Make MachineGroupKey public
+accessible class appeng/menu/me/networktool/MachineGroupKey
+
+# Make MachineGroup constructor and methods public
+accessible method appeng/menu/me/networktool/MachineGroup <init> (Lappeng/menu/me/networktool/MachineGroupKey;)V
+accessible method appeng/menu/me/networktool/MachineGroup setCount (I)V
+accessible method appeng/menu/me/networktool/MachineGroup setIdlePowerUsage (D)V
+accessible method appeng/menu/me/networktool/MachineGroup setPowerGenerationCapacity (D)V
