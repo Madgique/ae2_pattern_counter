@@ -2,17 +2,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-repositories {
-    maven {
-        name "Modmaven"
-        url "https://modmaven.dev/"
-    }
-    maven {
-        name "Wisp Forest"
-        url "https://maven.wispforest.io/"
-    }
-}
-
 configurations {
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
 }
@@ -30,9 +19,13 @@ dependencies {
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
-    
+
     // Applied Energistics 2
     modImplementation "appeng:appliedenergistics2-fabric:15.3.3"
+
+    // Development-only dependencies (JEI only - Jade requires manual download)
+    // Download Jade manually from https://modrinth.com/mod/jade and place in fabric/run/mods/
+    modLocalRuntime "mezz.jei:jei-1.20.1-fabric:15.2.0.27"
 
     implementation(project(path: ":common", configuration: "dev")) {
         transitive = false

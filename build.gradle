@@ -73,6 +73,25 @@ allprojects {
             name = "Modrinth"
             url = "https://api.modrinth.com/maven"
         }
+        maven {
+            name = "Wisp Forest"
+            url = "https://maven.wispforest.io/"
+        }
+        maven {
+            name = "Jared's Maven"
+            url = "https://maven.blamejared.com/"
+        }
+        maven {
+            name = "Shedaniel Maven"
+            url = "https://maven.shedaniel.me/"
+        }
+        maven {
+            name = "CurseMaven"
+            url = "https://cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
     }
 
     tasks.withType(JavaCompile) {

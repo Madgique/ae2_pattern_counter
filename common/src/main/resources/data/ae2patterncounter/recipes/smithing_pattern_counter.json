@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QSQ",
+    "BTB",
+    "QBQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "ae2:quartz_glass"
+    },
+    "S": {
+      "item": "ae2:storage_monitor"
+    },
+    "B": {
+      "item": "ae2:blank_pattern"
+    },
+    "T": {
+      "item": "minecraft:smithing_table"
+    }
+  },
+  "result": {
+    "item": "ae2patterncounter:smithing_pattern_counter"
+  }
+}

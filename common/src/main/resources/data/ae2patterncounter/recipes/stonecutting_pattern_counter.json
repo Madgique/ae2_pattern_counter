@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QSQ",
+    "BCB",
+    "QBQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "ae2:quartz_glass"
+    },
+    "S": {
+      "item": "ae2:storage_monitor"
+    },
+    "B": {
+      "item": "ae2:blank_pattern"
+    },
+    "C": {
+      "item": "minecraft:stonecutter"
+    }
+  },
+  "result": {
+    "item": "ae2patterncounter:stonecutting_pattern_counter"
+  }
+}

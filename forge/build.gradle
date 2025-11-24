@@ -2,25 +2,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-repositories {
-    maven {
-        name "Modmaven"
-        url "https://modmaven.dev/"
-    }
-    maven {
-        name "Shedaniel"
-        url "https://maven.shedaniel.me/"
-    }
-    maven {
-        name "Modrinth"
-        url "https://api.modrinth.com/maven"
-    }
-    maven {
-        name "Jared"
-        url "https://maven.blamejared.com"
-    }
-}
-
 configurations {
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
 }
