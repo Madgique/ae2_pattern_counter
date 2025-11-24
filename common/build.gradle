@@ -4,13 +4,16 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
-    
+
     // ClothConfig for configuration GUI (includes AutoConfig)
     modApi "me.shedaniel.cloth:cloth-config:${rootProject.cloth_config_version}"
-    
-    // Applied Energistics 2
-    modCompileOnly "appeng:appliedenergistics2-forge:15.3.3"
-    
+
+    // Applied Energistics 2 - Use Fabric version in common module for access widener support
+    modImplementation "appeng:appliedenergistics2-fabric:15.4.10"
+
+    // Jade API - Compile only (runtime provided by Forge/Fabric modules)
+    compileOnly "maven.modrinth:jade:11.11.1+forge"
+
 }
 
 architectury {
@@ -25,7 +28,6 @@ loom {
     mixin {
         defaultRefmapName = "add_pattern_to_network_tool.refmap.json"
     }
-    accessWidenerPath = file("src/main/resources/add_pattern_to_network_tool.accesswidener")
 }
 
 remapJar {

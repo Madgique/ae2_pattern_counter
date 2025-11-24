@@ -18,13 +18,9 @@
   "entrypoints": {
     "main": [
       "${maven_group}.fabric.${mod_class_name}Fabric"
-    ],
-    "client": [
-      "${maven_group}.fabric.${mod_class_name}FabricClient"
     ]
   },
   "mixins": [],
-  "accessWidener": "add_pattern_to_network_tool.accesswidener",
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",

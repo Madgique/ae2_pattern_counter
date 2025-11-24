@@ -1,0 +1,19 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "status": "ae2patterncounter:part/pattern_counter_status_off"
+  },
+  "elements": [
+    {
+      "comment": "Status indicator - off state",
+      "from": [7, 7, 15.9],
+      "to": [9, 9, 16],
+      "faces": {
+        "north": {
+          "uv": [7, 7, 9, 9],
+          "texture": "#status"
+        }
+      }
+    }
+  ]
+}

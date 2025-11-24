@@ -1,0 +1,21 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"sides": "ae2patterncounter:part/pattern_counter_sides",
+		"back": "ae2patterncounter:part/pattern_counter_back"
+	},
+	"elements": [
+		{
+			"from": [5, 5, 14],
+			"to": [11, 11, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 6], "texture": "#back"},
+				"east": {"uv": [5, 5, 7, 11], "texture": "#sides"},
+				"south": {"uv": [5, 5, 11, 11], "texture": "#back"},
+				"west": {"uv": [9, 5, 11, 11], "texture": "#sides"},
+				"up": {"uv": [5, 5, 11, 7], "texture": "#sides"},
+				"down": {"uv": [5, 9, 11, 11], "texture": "#sides"}
+			}
+		}
+	]
+}

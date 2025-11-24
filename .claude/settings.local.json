@@ -5,7 +5,9 @@
       "Bash(mv:*)",
       "Bash(./gradlew:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:wiki.fabricmc.net)"
+      "WebFetch(domain:wiki.fabricmc.net)",
+      "WebSearch",
+      "WebFetch"
     ],
     "deny": [],
     "ask": [

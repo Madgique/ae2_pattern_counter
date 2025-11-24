@@ -4,7 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a clean Minecraft mod template called "Add Pattern to Network Tool" built using the Architectury framework to support multiple mod loaders (Forge and Fabric) for Minecraft 1.20.1.
+This is a Minecraft mod called "AE2 Pattern Counter" built using the Architectury framework to support multiple mod loaders (Forge and Fabric) for Minecraft 1.20.1.
+
+The mod provides specialized monitoring blocks that connect to Applied Energistics 2 networks to count different types of patterns (Crafting, Processing, Smithing, Stonecutting, and Fluid patterns).
+
+### Reference Mod Structure
+For project structure and configuration templates, refer to the Madgique Tickrate Changer mod:
+- Repository: https://github.com/Madgique/madgique_tickrate_changer/tree/1.20.1
+- This mod serves as the reference template for all future Madgique mods
+- Use its `mods.toml` structure as the standard template: https://github.com/Madgique/madgique_tickrate_changer/blob/1.20.1/forge/src/main/resources/META-INF/mods.toml
+
+### Default License
+- All Madgique mods use **LGPLv2.1** as the default license
+- Set `mod_license = LGPLv2.1` in `mod.info.gradle.properties` for new mods
 
 ## Build System & Commands
 
@@ -52,14 +64,26 @@ The project follows Architectury's multi-platform pattern:
 
 ## Development Notes
 
+### Code Style
+- **IMPORTANT**: Always use proper imports instead of fully-qualified class names in code
+- ✅ Good: `super(ModBlockEntities.PATTERN_MONITOR.get(), pos, state);` with `import com.madgique.ae2patterncounter.init.ModBlockEntities;`
+- ❌ Bad: `super(com.madgique.ae2patterncounter.init.ModBlockEntities.PATTERN_MONITOR.get(), pos, state);`
+
+### File Editing
+- **CRITICAL**: NEVER use `sed`, `awk`, or similar bash text processing commands for modifying code files
+- **ALWAYS** use the Edit tool to modify files one by one
+- ✅ Good: Use Edit tool with old_string/new_string parameters
+- ❌ Bad: Using `sed -i 's/old/new/g' file.java`
+- Reason: Direct file editing ensures proper tracking, error handling, and prevents unintended modifications
+
 ### Adding New Features
-- Add cross-platform code to `common/src/main/java/com/madgique/addpatterntonetworktool/`
-- **Forge** platform-specific implementations go in `forge/src/main/java/com/madgique/addpatterntonetworktool/forge/`
-- **Fabric** platform-specific implementations go in `fabric/src/main/java/com/madgique/addpatterntonetworktool/fabric/`
+- Add cross-platform code to `common/src/main/java/com/madgique/ae2patterncounter/`
+- **Forge** platform-specific implementations go in `forge/src/main/java/com/madgique/ae2patterncounter/forge/`
+- **Fabric** platform-specific implementations go in `fabric/src/main/java/com/madgique/ae2patterncounter/fabric/`
 - **CRITICAL**: Never delete Fabric or Forge modules - both are required for multi-platform support
 - **IMPORTANT**: Prefer accesswidener for accessing private classes/methods, but reflection can be used when needed
 
-### Access Widener Usage
+### Access Widener Usage (Modern Approach - Minecraft 1.19+)
 - Access wideners modify access levels of classes, methods, and fields in Minecraft's code
 - File format: `.accesswidener` extension, start with `accessWidener v2 named`
 - Syntax:
@@ -67,8 +91,24 @@ The project follows Architectury's multi-platform pattern:
   - Methods: `<access> method <className> <methodName> <methodDesc>`
   - Fields: `<access> field <className> <fieldName> <fieldDesc>`
 - Access types: `accessible` (public), `extendable` (subclassing), `mutable` (removes final)
-- Configuration: Set `accessWidenerPath` in build.gradle and `accessWidener` in fabric.mod.json
-- Documentation: https://wiki.fabricmc.net/tutorial:accesswideners
+
+**Configuration for Minecraft 1.19+ (current project - 1.20.1):**
+- Place access widener file in `common/src/main/resources/`
+- Configure in `common/build.gradle`: `loom { accessWidenerPath = file("src/main/resources/your.accesswidener") }`
+- **Fabric**: Reference common access widener + inject it in JAR via `remapJar { injectAccessWidener = true }`
+- **Forge**: Use automatic conversion with `forge { convertAccessWideners = true; extraAccessWideners.add ... }`
+- **IMPORTANT**: Do NOT create manual `META-INF/accesstransformer.cfg` - let Loom convert it automatically!
+
+**For Minecraft 1.18.2 and earlier (backport notes):**
+- The `convertAccessWideners` feature doesn't exist in older Architectury Loom versions
+- You MUST create both files manually:
+  - `common/src/main/resources/mod.accesswidener` (for Fabric)
+  - `forge/src/main/resources/META-INF/accesstransformer.cfg` (for Forge)
+- Keep both files in sync manually
+
+**References:**
+- Access Widener docs: https://wiki.fabricmc.net/tutorial:accesswideners
+- Architectury Loom docs: https://docs.architectury.dev/loom/introduction
 
 ### Testing
 - Use `./gradlew :forge:runClient` to launch a development instance
@@ -80,7 +120,9 @@ The project follows Architectury's multi-platform pattern:
 - Fabric metadata: `fabric/src/resources/fabric.mod.json`
 - Both contain mod display information and dependencies
 
-### AE2 Reference
-- AE2 Source Code: https://github.com/AppliedEnergistics/Applied-Energistics-2
-- Use this repository to understand AE2's internal classes and structure
-- Essential for working with private classes like MachineGroupKey and MachineGroup
+### AE2 Integration
+- **CRITICAL**: When unsure how to implement AE2 features, ALWAYS check how MEGA Cells or AE2 Additions implement it first before attempting to code
+- **Reference Implementations**:
+  - AE2 Source Code: https://github.com/AppliedEnergistics/Applied-Energistics-2/tree/forge/1.20.1
+- Use these repositories to understand AE2's internal classes, structure, and proper lifecycle management
+- **Key Pattern**: Always use `GridHelper.onFirstTick()` for deferred grid node initialization to avoid chunk loading deadlocks

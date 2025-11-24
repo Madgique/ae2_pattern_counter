@@ -1,0 +1,18 @@
+{
+	"textures": {
+		"lightsBright": "ae2patterncounter:part/smithing_pattern_counter_bright"
+	},
+	"elements": [
+		{
+			"from": [2, 2, 0],
+			"to": [14, 14, 2],
+			"faces": {
+				"north": {
+					"texture": "#lightsBright",
+					"tintindex": 3,
+					"forge_data": {"block_light": 15, "sky_light": 15}
+				}
+			}
+		}
+	]
+}

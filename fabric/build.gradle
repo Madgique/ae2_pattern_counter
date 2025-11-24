@@ -22,6 +22,9 @@ architectury {
     fabric()
 }
 
+loom {
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
@@ -60,8 +63,7 @@ processResources {
                 minecraft_version: minecraft_version,
                 fabric_loader_version: fabric_loader_version,
                 fabric_api_version: fabric_api_version,
-                architectury_version: architectury_version,
-                curios_version: curios_version
+                architectury_version: architectury_version
     }
 }
 
@@ -73,6 +75,7 @@ shadowJar {
 }
 
 remapJar {
+    injectAccessWidener = true
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier.set("fabric")

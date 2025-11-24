@@ -1,0 +1,14 @@
+{
+  "ae2patterncounter.patterns": "Patterns: %s",
+  "item.ae2patterncounter.crafting_pattern_counter": "Crafting Pattern Counter Monitor",
+  "item.ae2patterncounter.processing_pattern_counter": "Processing Pattern Counter Monitor",
+  "item.ae2patterncounter.smithing_pattern_counter": "Smithing Pattern Counter Monitor",
+  "item.ae2patterncounter.stonecutting_pattern_counter": "Stonecutting Pattern Counter Monitor",
+  "item.ae2patterncounter.fluid_pattern_counter": "Fluid Pattern Counter Monitor",
+  "itemGroup.ae2patterncounter.pattern_counters": "AE2 Pattern Counters",
+  "jade.ae2patterncounter.device_online": "Device Online",
+  "jade.ae2patterncounter.device_offline": "Device Offline",
+  "jade.ae2patterncounter.pattern_count": "Patterns: %s",
+  "config.jade.plugin_ae2patterncounter.pattern_monitor_component": "Pattern Monitor",
+  "config.jade.plugin_ae2patterncounter.pattern_monitor_data": "Pattern Monitor Data"
+}

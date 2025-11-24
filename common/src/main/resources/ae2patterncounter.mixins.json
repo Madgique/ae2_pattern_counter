@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "priority": 1000,
+  "package": "com.madgique.ae2patterncounter.mixins",
+  "compatibilityLevel": "JAVA_11",
+  "mixins": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

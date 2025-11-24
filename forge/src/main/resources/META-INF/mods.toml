@@ -1,29 +1,39 @@
-modLoader="javafml"
-loaderVersion="[47,)"
-license="Not specified"
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "${mod_license}"
 
 [[mods]]
-modId="add_pattern_to_network_tool"
-version="${version}"
-displayName="Add Pattern to Network Tool"
-authors="Madgique"
-description='''Add Pattern to Network Tool - A clean mod template'''
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_display_name}"
+authors = "${mod_authors}"
+description = '''
+${mod_description}
+'''
+logoFile = "icon.png"
 
-# Start of user code block mod configuration
-# End of user code block mod configuration
+[[mixins]]
+config = "ae2patterncounter.mixins.json"
 
-[[dependencies.add_pattern_to_network_tool]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.20.1]"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies."${mod_id}"]]
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
+ordering = "NONE"
+side = "BOTH"
 
-[[dependencies.add_pattern_to_network_tool]]
-    modId="architectury"
-    mandatory=true
-    versionRange="[9.2.14,)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies."${mod_id}"]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "architectury"
+mandatory = true
+versionRange = "[9.2.14,)"
+ordering = "AFTER"
+side = "BOTH"
 
 

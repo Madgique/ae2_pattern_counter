@@ -69,6 +69,10 @@ allprojects {
             name = "ModMaven"
             url = "https://modmaven.dev"
         }
+        maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven"
+        }
     }
 
     tasks.withType(JavaCompile) {
