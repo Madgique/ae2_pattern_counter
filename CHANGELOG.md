@@ -1,21 +1,18 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
-## [1.0.0] - 2025-01-24
+## [1.1.0] - 2025-01-24
 
 ### Added
-- Initial release of AE2 Pattern Counter
-- Five specialized pattern counters: Crafting, Processing, Fluid, Smithing, and Stonecutting
-- Real-time pattern count display on monitor face
-- "OFFLINE" status with smooth blinking animation when no channel available
-- Color-coded textures for each pattern type
-- Power status indicators (bright when powered, dark when off)
-- Multi-platform support for Forge and Fabric via Architectury
-- Automatic AE2 network integration
+- Crafting recipes for all 5 pattern counter monitors
+  - Crafting Pattern Counter: Storage Monitor + Crafting Table + Blank Patterns + Quartz Glass
+  - Processing Pattern Counter: Storage Monitor + Furnace + Blank Patterns + Quartz Glass
+  - Smithing Pattern Counter: Storage Monitor + Smithing Table + Blank Patterns + Quartz Glass
+  - Stonecutting Pattern Counter: Storage Monitor + Stonecutter + Blank Patterns + Quartz Glass
+  - Fluid Pattern Counter: Storage Monitor + Water Bucket + Blank Patterns + Quartz Glass
+- JEI support for Fabric (development environment)
+- Proper mod metadata with GitHub links
 
-### Features
-- Works on all block faces and orientations
-- No configuration required - plug and play
-- Compatible with Jade/HWYLA/WTHIT for tooltips
-- Lightweight and optimized performance
+### Changed
+- Centralized Maven repositories in root build.gradle for better maintainability
+- Updated license to LGPLv2.1
+- Improved build configuration for multi-platform development

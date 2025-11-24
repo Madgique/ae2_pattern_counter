@@ -120,6 +120,26 @@ The project follows Architectury's multi-platform pattern:
 - Fabric metadata: `fabric/src/resources/fabric.mod.json`
 - Both contain mod display information and dependencies
 
+### Changelog Management
+- **IMPORTANT**: The `CHANGELOG.md` file contains ONLY the current version's changes
+- When releasing a new version, completely overwrite `CHANGELOG.md` with the new version's changelog
+- Do NOT maintain full version history in CHANGELOG.md - GitHub Releases provides that history
+- This approach ensures CurseForge and Modrinth display only the current version's changes (not the entire history)
+- The GitHub Actions workflow uses `changelog-file: CHANGELOG.md` which will upload only the current version's notes
+- Example format:
+  ```markdown
+  # Changelog
+
+  ## [X.Y.Z] - YYYY-MM-DD
+
+  ### Added
+  - Feature 1
+  - Feature 2
+
+  ### Changed
+  - Change 1
+  ```
+
 ### AE2 Integration
 - **CRITICAL**: When unsure how to implement AE2 features, ALWAYS check how MEGA Cells or AE2 Additions implement it first before attempting to code
 - **Reference Implementations**:

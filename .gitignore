@@ -11,3 +11,6 @@ bin/
 # Secrets - NEVER commit tokens!
 local.properties
 gradle-local.properties
+
+# Environment variables
+.env.local
