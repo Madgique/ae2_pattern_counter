@@ -7,3 +7,7 @@ bin/
 # IDE
 .vscode/
 .idea/
+
+# Secrets - NEVER commit tokens!
+local.properties
+gradle-local.properties
