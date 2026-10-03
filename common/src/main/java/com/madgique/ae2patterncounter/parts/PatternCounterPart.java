@@ -149,13 +149,17 @@ public class PatternCounterPart extends AbstractDisplayPart implements IGridTick
             color = ((int) (blink * 255) << 24) | 0xFF0000;
         }
 
+        var font = Minecraft.getInstance().font;
+        // Text fits the 10 px wide number area of the texture; long texts ("OFFLINE") shrink.
+        float scale = Math.min(0.018f, (10 / 16f) / font.width(text));
+
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
         BlockEntityRenderHelper.rotateToFace(poseStack, BlockOrientation.get(getSide(), getSpin()));
-        poseStack.translate(0, 0.05, 0.52);
-        poseStack.scale(0.01f, -0.01f, 0.01f);
+        // Number area: under the type icon, 3 px below the face center
+        poseStack.translate(0, -3 / 16f, 0.52);
+        poseStack.scale(scale, -scale, scale);
 
-        var font = Minecraft.getInstance().font;
         font.drawInBatch(text, -font.width(text) / 2f, -font.lineHeight / 2f, color, false,
                 poseStack.last().pose(), buffers, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 

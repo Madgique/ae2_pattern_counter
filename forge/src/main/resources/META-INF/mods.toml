@@ -10,7 +10,7 @@ authors = "${mod_authors}"
 description = '''
 ${mod_description}
 '''
-logoFile = "icon.png"
+logoFile = "assets/ae2patterncounter/icon.png"
 
 [[dependencies."${mod_id}"]]
 modId = "ae2"
