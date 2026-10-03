@@ -1,5 +1,6 @@
 package com.madgique.ae2patterncounter.parts;
 
+import java.util.Locale;
 import java.util.function.Predicate;
 
 import com.madgique.ae2patterncounter.AE2PatternCounterMod;
@@ -41,6 +42,7 @@ public class PatternCounterPart extends AbstractDisplayPart implements IGridTick
         STONECUTTING(p -> p instanceof AEStonecuttingPattern),
         FLUID(Type::hasFluid);
 
+        public final String id;
         public final ResourceLocation modelOff;
         public final ResourceLocation modelOn;
         private final IPartModel modelsOff;
@@ -49,9 +51,9 @@ public class PatternCounterPart extends AbstractDisplayPart implements IGridTick
         private final Predicate<IPatternDetails> matcher;
 
         Type(Predicate<IPatternDetails> matcher) {
-            String name = name().toLowerCase() + "_pattern_counter";
-            this.modelOff = new ResourceLocation(AE2PatternCounterMod.MOD_ID, "part/" + name + "_off");
-            this.modelOn = new ResourceLocation(AE2PatternCounterMod.MOD_ID, "part/" + name + "_on");
+            this.id = name().toLowerCase(Locale.ROOT) + "_pattern_counter";
+            this.modelOff = new ResourceLocation(AE2PatternCounterMod.MOD_ID, "part/" + id + "_off");
+            this.modelOn = new ResourceLocation(AE2PatternCounterMod.MOD_ID, "part/" + id + "_on");
             this.modelsOff = new PartModel(MODEL_BASE, modelOff, MODEL_STATUS_OFF);
             this.modelsOn = new PartModel(MODEL_BASE, modelOn, MODEL_STATUS_ON);
             this.modelsHasChannel = new PartModel(MODEL_BASE, modelOn, MODEL_STATUS_HAS_CHANNEL);

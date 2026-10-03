@@ -17,7 +17,7 @@ public class ModParts {
 
     public static void register() {
         for (var type : PatternCounterPart.Type.values()) {
-            PARTS.register(type.name().toLowerCase() + "_pattern_counter", () ->
+            PARTS.register(type.id, () ->
                 new PartItem<>(new Item.Properties().arch$tab(ModCreativeTabs.PATTERN_COUNTERS),
                     PatternCounterPart.class, item -> new PatternCounterPart(item, type)));
             PartModels.registerModels(type.modelOff, type.modelOn);
