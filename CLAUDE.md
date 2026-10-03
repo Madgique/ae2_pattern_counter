@@ -37,4 +37,12 @@ To add a counter: add a `Type` value, its `models/part/<id>_on|off.json`, item m
 - AE2 reference: https://github.com/AE2-UEL/Applied-Energistics-2
 - Part models use AE2's `ae2_uvl_marker` / `uvlightmap` for emissive faces (not `forge_data`).
 - Recipes use AE2's `appliedenergistics2:part` ingredient type (`part.storage_monitor`, `material.blank_pattern`).
-- `CHANGELOG.md` contains only the current version's changes.
+- Use `Locale.ROOT` for `toLowerCase` on identifiers.
+- Textures: 16x16; the placed part shows only pixels 2..13. The outer ring is the item icon frame.
+- `CHANGELOG.md` contains only the current version's changes (it is uploaded as the release notes).
+
+## Releasing
+
+Push a tag `v<mod_version>-1.12.2`. `.github/workflows/publish.yml` builds and uploads to Modrinth and CurseForge
+(secrets: `MODRINTH_TOKEN`, `MODRINTH_PROJECT_ID`, `CURSEFORGE_TOKEN`, `CURSEFORGE_PROJECT_ID`).
+The template's own Gradle publishing (`publish_to_*` in `gradle.properties`) stays disabled.

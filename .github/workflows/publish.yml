@@ -1,0 +1,50 @@
+name: Publish
+
+# Release: push the tag "v<mod_version>-1.12.2" (example: v1.2.0-1.12.2), or run it from the Actions tab.
+# Secrets: MODRINTH_TOKEN, MODRINTH_PROJECT_ID, CURSEFORGE_TOKEN, CURSEFORGE_PROJECT_ID.
+on:
+  push:
+    tags: ['v*-1.12.2']
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Build
+        run: chmod +x gradlew && ./gradlew build
+
+      - name: Read mod version
+        id: mod
+        run: echo "version=$(grep -E '^mod_version' gradle.properties | cut -d= -f2 | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Modrinth and CurseForge
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: ${{ secrets.MODRINTH_PROJECT_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-id: ${{ secrets.CURSEFORGE_PROJECT_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+
+          files: build/libs/!(*-@(dev|sources|javadoc)).jar
+          name: AE2 Pattern Counter ${{ steps.mod.outputs.version }} (Forge 1.12.2)
+          version: ${{ steps.mod.outputs.version }}+forge-1.12.2
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          loaders: forge
+          game-versions: 1.12.2
+          java: 8
+          # AE2 Unofficial Extended Life and AE2 Fluid Crafting are not on Modrinth
+          dependencies: |
+            ae2-extended-life(required){curseforge:570458}#(ignore:modrinth)
+            ae2-fluid-crafting-rework(optional){curseforge:623955}#(ignore:modrinth)

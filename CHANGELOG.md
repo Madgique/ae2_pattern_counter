@@ -1,14 +1,12 @@
 # Changelog
 
-## [1.1.0] - 1.12.2 port
+## [1.2.0] - 2026-10-03 (Minecraft 1.12.2)
 
 ### Added
-- Minecraft 1.12.2 / Forge version, for AE2 Unofficial Extended Life (and rv6)
-- Crafting, Processing and Fluid pattern counters
-- Fluid counter support for AE2 Fluid Crafting Rework patterns
+- First release for Minecraft 1.12.2 on Forge (Cleanroom works too), for AE2 Unofficial Extended Life.
+- Crafting, Processing and Fluid counters. The Fluid counter uses AE2 Fluid Crafting Rework patterns.
+- Screen textures with a colored icon for each counter type, and a mod icon.
 
-### Fixed
-- Patterns with several outputs are now counted once (AE2 1.12 lists a pattern under each output)
-
-### Removed
-- Smithing and Stonecutting counters (these blocks do not exist in 1.12.2)
+### Notes
+- A pattern with several outputs counts once.
+- Smithing and Stonecutting counters are not available: Minecraft 1.12.2 has no smithing table and no stonecutter.

@@ -1,48 +1,80 @@
-# AE2 Pattern Counter (1.12.2)
+# AE2 Pattern Counter
 
-**Monitor your Applied Energistics 2 pattern inventory in real-time!**
+<img src="src/main/resources/assets/ae2patterncounter/icon.png" alt="AE2 Pattern Counter icon" width="128" align="right">
 
-AE2 Pattern Counter adds monitor parts that display how many patterns of a given type are available in your AE2 network.
+Monitor parts for **Applied Energistics 2** that show how many patterns of one type your ME network knows.
+Place one on a cable and read the count on its screen.
 
-## Features
+## Supported versions
 
-### Three Specialized Counters
-- **Crafting Pattern Counter** - Counts crafting (workbench) patterns
-- **Processing Pattern Counter** - Counts processing patterns
-- **Fluid Pattern Counter** - Counts patterns that use fluids (requires [AE2 Fluid Crafting Rework](https://www.curseforge.com/minecraft/mc-mods/ae2-fluid-crafting-rework); shows 0 without it)
+| Minecraft | Loader | Applied Energistics 2 | Counters | Branch |
+|---|---|---|---|---|
+| 1.21.1 | NeoForge | 19.2+ | all 5 | [`1.21.1`](https://github.com/Madgique/ae2_pattern_counter/tree/1.21.1) |
+| 1.20.1 | Forge, Fabric | 15.x | all 5 | [`1.20.1`](https://github.com/Madgique/ae2_pattern_counter/tree/1.20.1) |
+| **1.12.2** | **Forge / Cleanroom** | **AE2 Unofficial Extended Life** | **Crafting, Processing, Fluid** | **`1.12.2` (this branch)** |
 
-Smithing and stonecutting counters exist only in the 1.20.1 version: those blocks do not exist in Minecraft 1.12.2.
+## Counters
 
-### Visual Feedback
-- **Real-time Count Display** - The pattern count is drawn on the monitor face
-- **Power Status Indicator** - Bright texture when powered, dark when off
-- **Offline Detection** - Blinking "OFFLINE" message when the part has no channel
-- **Color-Coded** - Each pattern type has its own color
+| Counter | Counts | Center item of the recipe |
+|---|---|---|
+| Crafting Pattern Counter | Crafting table patterns | Crafting Table |
+| Processing Pattern Counter | Processing (machine) patterns | Furnace |
+| Fluid Pattern Counter | Patterns with a fluid, made with [AE2 Fluid Crafting Rework](https://www.curseforge.com/minecraft/mc-mods/ae2-fluid-crafting-rework) | Water Bucket |
 
-### Easy to Use
-- Place on any AE2 cable like other AE2 parts
-- Rotate with a wrench when placed on the top or bottom of a block
-- No configuration needed
+Without AE2 Fluid Crafting Rework, the Fluid counter shows 0.
+Smithing and Stonecutting counters do not exist in 1.12.2: Minecraft 1.12.2 has no smithing table and no stonecutter.
 
-## Requirements
-- **Minecraft**: 1.12.2
-- **Forge**: 14.23.5.2847+
-- **Applied Energistics 2**: [AE2 Unofficial Extended Life](https://www.curseforge.com/minecraft/mc-mods/ae2-extended-life) (tested with v0.56.6; official rv6 should work but is untested)
-- **AE2 Fluid Crafting Rework**: Optional, needed for the Fluid Pattern Counter
+## How to use
+
+1. Craft a counter. All recipes use the same shape:
+
+   ```
+   Quartz Glass   ME Storage Monitor   Quartz Glass
+   Blank Pattern  <center item>        Blank Pattern
+   Quartz Glass   Blank Pattern        Quartz Glass
+   ```
+
+2. Place the counter on an ME cable, like any AE2 part.
+3. Read the screen. The count updates within 5 seconds after a change.
+
+| Screen | Meaning |
+|---|---|
+| Icon and number | The part works. |
+| Red blinking `OFFLINE` | The part has power but no channel. |
+| Dark screen | The network has no power. |
+
+Use a wrench to turn the screen when the part is on a floor or a ceiling.
+
+## Requirements (1.12.2)
+
+- Forge 14.23.5.2847+ or Cleanroom
+- [AE2 Unofficial Extended Life](https://www.curseforge.com/minecraft/mc-mods/ae2-extended-life) (tested with v0.56.6 and v0.56.7)
+- Optional: [AE2 Fluid Crafting Rework](https://www.curseforge.com/minecraft/mc-mods/ae2-fluid-crafting-rework) for the Fluid counter
 
 ## Building
-Java 25 runs Gradle; the mod itself targets Java 8 (modern syntax via Jabel).
+
+Gradle needs JDK 17 or newer (JDK 25 recommended). The mod itself targets Java 8.
 
 ```bash
 ./gradlew build
 ```
 
-The jar is in `build/libs/`. Use `./gradlew runClient` to start a development client.
+The jar is in `build/libs/` (use the file without `-dev` or `-sources`).
+To test in game, use `./gradlew runClient` (or `runServer`).
+
+## Releasing
+
+1. Set `mod_version` in `gradle.properties`.
+2. Replace the content of `CHANGELOG.md` with the notes of this version only.
+3. Push a tag `v<version>-1.12.2`:
+
+   ```bash
+   git tag v1.2.0-1.12.2 && git push origin v1.2.0-1.12.2
+   ```
+
+The **Publish** workflow builds the mod and uploads the jar to Modrinth and CurseForge.
+It needs these repository secrets: `MODRINTH_TOKEN`, `MODRINTH_PROJECT_ID`, `CURSEFORGE_TOKEN`, `CURSEFORGE_PROJECT_ID`.
 
 ## License
 
-This mod is licensed under LGPLv2.1
-
-## Credits
-
-Created by Madgique
+LGPLv2.1. Created by Madgique.
