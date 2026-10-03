@@ -20,14 +20,12 @@ dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    
-    // ClothConfig API for configuration GUI
-    modImplementation "me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}"
-    
-    // Applied Energistics 2
-    modImplementation "appeng:appliedenergistics2-forge:15.3.3"
 
-    // Development-only dependencies (Jade and JEI)
+    // Applied Energistics 2
+    modImplementation "appeng:appliedenergistics2-forge:${rootProject.ae2_version}"
+
+    // Development-only dependencies (GuideME is required by AE2 15.4+ on Forge)
+    modLocalRuntime "org.appliedenergistics:guideme:${rootProject.guideme_version}"
     modLocalRuntime "maven.modrinth:jade:11.11.1+forge"
     modLocalRuntime "mezz.jei:jei-1.20.1-forge:15.20.0.105"
 
