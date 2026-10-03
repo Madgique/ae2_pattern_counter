@@ -154,20 +154,24 @@ public class PatternCounterPart extends AbstractPartDisplay implements IGridTick
             color = ((int) (blink * 255) << 24) | 0xFF0000;
         }
 
+        FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+        // Text fits the 10 px wide number area of the texture; long texts ("OFFLINE") shrink.
+        float scale = Math.min(0.018f, (10 / 16f) / font.getStringWidth(text));
+
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
         EnumFacing facing = getSide().getFacing();
         TesrRenderHelper.moveToFace(facing);
         TesrRenderHelper.rotateToFace(facing, getSpin());
-        GlStateManager.translate(0, -0.05, 0.01);
-        GlStateManager.scale(0.01f, 0.01f, 0.01f);
+        // Number area: under the type icon, 3 px below the face center
+        GlStateManager.translate(0, 3 / 16f, 0.01);
+        GlStateManager.scale(scale, scale, scale);
 
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
         GlStateManager.disableLighting();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
-        FontRenderer font = Minecraft.getMinecraft().fontRenderer;
         font.drawString(text, -font.getStringWidth(text) / 2f, -font.FONT_HEIGHT / 2f, color, false);
 
         GlStateManager.disableBlend();
