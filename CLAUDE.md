@@ -4,146 +4,46 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Minecraft mod called "AE2 Pattern Counter" built using the Architectury framework to support multiple mod loaders (Forge and Fabric) for Minecraft 1.20.1.
+"AE2 Pattern Counter" for **Minecraft 1.21.1 / NeoForge only** (branch `1.21.1`).
+Other branches: `1.20.1` (Forge + Fabric, Architectury), `1.12.2` (Forge, AE2 Unofficial Extended Life).
 
-The mod provides specialized monitoring blocks that connect to Applied Energistics 2 networks to count different types of patterns (Crafting, Processing, Smithing, Stonecutting, and Fluid patterns).
+The mod adds AE2 cable parts that display how many patterns of one type (Crafting, Processing, Smithing, Stonecutting, Fluid) the network knows.
+AE2 has no Fabric or Forge release for 1.21.1, so this branch is a single NeoForge module.
 
-### Reference Mod Structure
-For project structure and configuration templates, refer to the Madgique Tickrate Changer mod:
-- Repository: https://github.com/Madgique/madgique_tickrate_changer/tree/1.20.1
-- This mod serves as the reference template for all future Madgique mods
-- Use its `mods.toml` structure as the standard template: https://github.com/Madgique/madgique_tickrate_changer/blob/1.20.1/forge/src/main/resources/META-INF/mods.toml
+## Build System
 
-### Default License
-- All Madgique mods use **LGPLv2.1** as the default license
-- Set `mod_license = LGPLv2.1` in `mod.info.gradle.properties` for new mods
+- NeoForge MDK with ModDevGradle (`net.neoforged.moddev`), Java 21, Parchment mappings.
+- AE2 comes from Maven Central: `org.appliedenergistics:appliedenergistics2:${ae2_version}` (GuideME is pulled at runtime).
+- Mod metadata lives in `gradle.properties`; `src/main/templates/META-INF/neoforge.mods.toml` is expanded at build time.
 
-## Build System & Commands
-
-This project uses Gradle with the Architectury plugin for multi-platform mod development.
-
-### Essential Commands
-- `./gradlew build` - Build all modules (common + forge + fabric)
-- `./gradlew :forge:build` - Build only the Forge version
-- `./gradlew :fabric:build` - Build only the Fabric version
-- `./gradlew :common:build` - Build only the common module
-- `./gradlew :forge:runClient` - Run Minecraft client with the mod for testing
-- `./gradlew clean` - Clean build artifacts
-
-### Development Setup
-- Java 17 required (configured via toolchain)
-- Uses official Mojang mappings
-- Mod version: 1.0 (defined in gradle.properties)
-- Target Minecraft: 1.20.1
-- Forge version: 47.3.0
-- Architectury version: 9.2.14
+### Commands
+- `./gradlew build` - Build the mod jar (`build/libs/`)
+- `./gradlew runClient` / `./gradlew runServer` - Development instances (`run/`)
 
 ## Architecture
 
-### Multi-Platform Structure
-The project follows Architectury's multi-platform pattern:
+- `AE2PatternCounterMod` - `@Mod` class: item and creative tab `DeferredRegister`s, AE2 part model registration.
+- `parts/PatternCounterPart` - the only part class. `PatternCounterPart.Type` holds each counter's id, models and pattern filter.
+  - Counting: `ICraftingService.getCraftables` -> `getCraftingFor`. AE2 indexes each pattern once, under its primary output.
+  - The count is synced with `writeToStream`/`readFromStream` and drawn in `renderDynamic`, under the type icon of the texture.
 
-- **`common/`** - Platform-agnostic code shared between mod loaders
-  - Contains core mod logic and configuration
-  - Main class: `AE2PatternCounterMod`
-  - All counters share one part class, `PatternCounterPart`; each counter is a value of `PatternCounterPart.Type`
+To add a counter: add a `Type` value, its `models/part/<id>_on|off.json`, item model, textures, lang key and recipe.
 
-- **`forge/`** - Forge-specific implementation
-  - Platform-specific mod initialization and event handling
-  - Contains `AE2PatternCounterModForge` which bootstraps the common code
-  - Includes `mods.toml` for Forge mod metadata
+## Resources
 
-- **`fabric/`** - Fabric-specific implementation
-  - Platform-specific mod initialization and event handling
-  - Contains `AE2PatternCounterModFabric` which bootstraps the common code  
-  - Includes `fabric.mod.json` for Fabric mod metadata
-
-### Dependencies
-- Architectury API for cross-platform compatibility
-- Applied Energistics 2 (version set by `ae2_version` in `gradle.properties`)
-- Multiple mod loaders supported (Forge and Fabric)
+- Part models use `neoforge_data` for emissive faces. No `tintindex`: it would tint the screen with the cable color.
+- Recipes are in `data/ae2patterncounter/recipe/` (1.21 format: `"result": {"id": ..., "count": 1}`).
+- Textures: 16x16; the placed part shows only pixels 2..13. The outer ring is the item icon frame.
 
 ## Development Notes
 
-### Code Style
-- **IMPORTANT**: Always use proper imports instead of fully-qualified class names in code
-- ✅ Good: `super(ModBlockEntities.PATTERN_MONITOR.get(), pos, state);` with `import com.madgique.ae2patterncounter.init.ModBlockEntities;`
-- ❌ Bad: `super(com.madgique.ae2patterncounter.init.ModBlockEntities.PATTERN_MONITOR.get(), pos, state);`
+- Always use imports instead of fully-qualified class names.
+- Use the Edit tool to modify code files; do not use `sed`/`awk` on code files.
+- Use `Locale.ROOT` for `toLowerCase` on identifiers.
+- AE2 reference: https://github.com/AppliedEnergistics/Applied-Energistics-2/tree/1.21.1
+- `CHANGELOG.md` contains only the current version's changes (it is uploaded as the release notes).
 
-### File Editing
-- **CRITICAL**: NEVER use `sed`, `awk`, or similar bash text processing commands for modifying code files
-- **ALWAYS** use the Edit tool to modify files one by one
-- ✅ Good: Use Edit tool with old_string/new_string parameters
-- ❌ Bad: Using `sed -i 's/old/new/g' file.java`
-- Reason: Direct file editing ensures proper tracking, error handling, and prevents unintended modifications
+## Releasing
 
-### Adding New Features
-- Add cross-platform code to `common/src/main/java/com/madgique/ae2patterncounter/`
-- **Forge** platform-specific implementations go in `forge/src/main/java/com/madgique/ae2patterncounter/forge/`
-- **Fabric** platform-specific implementations go in `fabric/src/main/java/com/madgique/ae2patterncounter/fabric/`
-- **CRITICAL**: Never delete Fabric or Forge modules - both are required for multi-platform support
-- **IMPORTANT**: Prefer accesswidener for accessing private classes/methods, but reflection can be used when needed
-
-### Access Widener Usage (Modern Approach - Minecraft 1.19+)
-- Access wideners modify access levels of classes, methods, and fields in Minecraft's code
-- File format: `.accesswidener` extension, start with `accessWidener v2 named`
-- Syntax:
-  - Classes: `<access> class <className>`
-  - Methods: `<access> method <className> <methodName> <methodDesc>`
-  - Fields: `<access> field <className> <fieldName> <fieldDesc>`
-- Access types: `accessible` (public), `extendable` (subclassing), `mutable` (removes final)
-
-**Configuration for Minecraft 1.19+ (current project - 1.20.1):**
-- Place access widener file in `common/src/main/resources/`
-- Configure in `common/build.gradle`: `loom { accessWidenerPath = file("src/main/resources/your.accesswidener") }`
-- **Fabric**: Reference common access widener + inject it in JAR via `remapJar { injectAccessWidener = true }`
-- **Forge**: Use automatic conversion with `forge { convertAccessWideners = true; extraAccessWideners.add ... }`
-- **IMPORTANT**: Do NOT create manual `META-INF/accesstransformer.cfg` - let Loom convert it automatically!
-
-**For Minecraft 1.18.2 and earlier (backport notes):**
-- The `convertAccessWideners` feature doesn't exist in older Architectury Loom versions
-- You MUST create both files manually:
-  - `common/src/main/resources/mod.accesswidener` (for Fabric)
-  - `forge/src/main/resources/META-INF/accesstransformer.cfg` (for Forge)
-- Keep both files in sync manually
-
-**References:**
-- Access Widener docs: https://wiki.fabricmc.net/tutorial:accesswideners
-- Architectury Loom docs: https://docs.architectury.dev/loom/introduction
-
-### Testing
-- Use `./gradlew :forge:runClient` to launch a development instance
-- Test configuration changes by modifying the generated config file
-- The `forge/run/` directory contains the development environment with logs, saves, and config
-
-### Resource Management
-- Forge metadata: `forge/src/resources/META-INF/mods.toml`
-- Fabric metadata: `fabric/src/resources/fabric.mod.json`
-- Both contain mod display information and dependencies
-
-### Changelog Management
-- **IMPORTANT**: The `CHANGELOG.md` file contains ONLY the current version's changes
-- When releasing a new version, completely overwrite `CHANGELOG.md` with the new version's changelog
-- Do NOT maintain full version history in CHANGELOG.md - GitHub Releases provides that history
-- This approach ensures CurseForge and Modrinth display only the current version's changes (not the entire history)
-- The GitHub Actions workflow uses `changelog-file: CHANGELOG.md` which will upload only the current version's notes
-- Example format:
-  ```markdown
-  # Changelog
-
-  ## [X.Y.Z] - YYYY-MM-DD
-
-  ### Added
-  - Feature 1
-  - Feature 2
-
-  ### Changed
-  - Change 1
-  ```
-
-### AE2 Integration
-- **CRITICAL**: When unsure how to implement AE2 features, ALWAYS check how MEGA Cells or AE2 Additions implement it first before attempting to code
-- **Reference Implementations**:
-  - AE2 Source Code: https://github.com/AppliedEnergistics/Applied-Energistics-2/tree/forge/1.20.1
-- Use these repositories to understand AE2's internal classes, structure, and proper lifecycle management
-- **Key Pattern**: Always use `GridHelper.onFirstTick()` for deferred grid node initialization to avoid chunk loading deadlocks
+Push a tag `v<mod_version>-1.21.1`. `.github/workflows/publish.yml` builds and uploads to Modrinth and CurseForge
+(secrets: `MODRINTH_TOKEN`, `MODRINTH_PROJECT_ID`, `CURSEFORGE_TOKEN`, `CURSEFORGE_PROJECT_ID`).
