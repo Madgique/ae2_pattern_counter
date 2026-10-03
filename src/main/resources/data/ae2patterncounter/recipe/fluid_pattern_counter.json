@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QSQ",
+    "BWB",
+    "QBQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "ae2:quartz_glass"
+    },
+    "S": {
+      "item": "ae2:storage_monitor"
+    },
+    "B": {
+      "item": "ae2:blank_pattern"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "ae2patterncounter:fluid_pattern_counter"
+  },
+  "category": "misc"
+}
