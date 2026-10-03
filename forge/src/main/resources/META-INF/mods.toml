@@ -12,8 +12,12 @@ ${mod_description}
 '''
 logoFile = "icon.png"
 
-[[mixins]]
-config = "ae2patterncounter.mixins.json"
+[[dependencies."${mod_id}"]]
+modId = "ae2"
+mandatory = true
+versionRange = "[15,)"
+ordering = "AFTER"
+side = "BOTH"
 
 [[dependencies."${mod_id}"]]
 modId = "forge"

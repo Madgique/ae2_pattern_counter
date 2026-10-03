@@ -57,7 +57,6 @@ AE2 Pattern Counter adds specialized monitoring blocks that display the number o
 ## Compatibility
 
 - **Multi-platform**: Works on both Forge and Fabric
-- **Optional Mods**: Compatible with Jade/HWYLA/WTHIT for additional tooltips
 - **AE2 Addons**: Compatible with other AE2 addon mods
 
 ## License

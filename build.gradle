@@ -7,23 +7,6 @@ architectury {
     minecraft = rootProject.minecraft_version
 }
 
-def loadPropertiesFromFile(file) {
-    def props = new Properties()
-    file.withInputStream { stream -> props.load(stream) }
-    return props
-}
-
-def combinedProperties = new Properties()
-def propertiesFile = file('mod.info.gradle.properties')
-if (propertiesFile.exists()) {
-    def props = loadPropertiesFromFile(propertiesFile)
-    combinedProperties.putAll(props)
-}
-
-combinedProperties.each { key, value ->
-    project.ext[key] = value
-}
-
 subprojects {
     apply plugin: "dev.architectury.loom"
 
@@ -58,14 +41,6 @@ allprojects {
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
         maven {
-            name = "TheIllusiveC4 maven"
-            url = "https://maven.theillusivec4.top/"
-        }
-        maven {
-            name = "TerraformersMC"
-            url = "https://maven.terraformersmc.com/"
-        }
-        maven {
             name = "ModMaven"
             url = "https://modmaven.dev"
         }
@@ -74,23 +49,12 @@ allprojects {
             url = "https://api.modrinth.com/maven"
         }
         maven {
-            name = "Wisp Forest"
-            url = "https://maven.wispforest.io/"
-        }
-        maven {
             name = "Jared's Maven"
             url = "https://maven.blamejared.com/"
         }
         maven {
             name = "Shedaniel Maven"
             url = "https://maven.shedaniel.me/"
-        }
-        maven {
-            name = "CurseMaven"
-            url = "https://cursemaven.com"
-            content {
-                includeGroup "curse.maven"
-            }
         }
     }
 

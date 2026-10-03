@@ -21,7 +21,7 @@ dependencies {
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
     // Applied Energistics 2
-    modImplementation "appeng:appliedenergistics2-fabric:15.3.3"
+    modImplementation "appeng:appliedenergistics2-fabric:${rootProject.ae2_version}"
 
     // Development-only dependencies (JEI only - Jade requires manual download)
     // Download Jade manually from https://modrinth.com/mod/jade and place in fabric/run/mods/

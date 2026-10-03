@@ -14,7 +14,7 @@
   },
   "license": "${mod_license}",
   "icon": "assets/${mod_id}/icon.png",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "${maven_group}.fabric.${mod_class_name}Fabric"
@@ -26,7 +26,8 @@
     "fabric-api": "*",
     "minecraft": "~${minecraft_version}",
     "java": ">=17",
-    "architectury": ">=${architectury_version}"
+    "architectury": ">=${architectury_version}",
+    "ae2": "*"
   },
   "suggests": {}
 }

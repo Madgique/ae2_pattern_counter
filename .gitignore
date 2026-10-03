@@ -3,6 +3,8 @@
 build/
 run/
 bin/
+.architectury-transformer/
+*.log
 
 # IDE
 .vscode/

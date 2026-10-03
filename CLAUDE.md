@@ -45,21 +45,22 @@ The project follows Architectury's multi-platform pattern:
 
 - **`common/`** - Platform-agnostic code shared between mod loaders
   - Contains core mod logic and configuration
-  - Main class: `AddPatternToNetworkToolMod`
-  
+  - Main class: `AE2PatternCounterMod`
+  - All counters share one part class, `PatternCounterPart`; each counter is a value of `PatternCounterPart.Type`
+
 - **`forge/`** - Forge-specific implementation
   - Platform-specific mod initialization and event handling
-  - Contains `AddPatternToNetworkToolModForge` which bootstraps the common code
+  - Contains `AE2PatternCounterModForge` which bootstraps the common code
   - Includes `mods.toml` for Forge mod metadata
 
 - **`fabric/`** - Fabric-specific implementation
   - Platform-specific mod initialization and event handling
-  - Contains `AddPatternToNetworkToolModFabric` which bootstraps the common code  
+  - Contains `AE2PatternCounterModFabric` which bootstraps the common code  
   - Includes `fabric.mod.json` for Fabric mod metadata
 
 ### Dependencies
 - Architectury API for cross-platform compatibility
-- ClothConfig for configuration GUI (includes AutoConfig)
+- Applied Energistics 2 (version set by `ae2_version` in `gradle.properties`)
 - Multiple mod loaders supported (Forge and Fabric)
 
 ## Development Notes

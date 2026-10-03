@@ -20,12 +20,9 @@ dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-    
-    // ClothConfig API for configuration GUI
-    modImplementation "me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}"
-    
+
     // Applied Energistics 2
-    modImplementation "appeng:appliedenergistics2-forge:15.3.3"
+    modImplementation "appeng:appliedenergistics2-forge:${rootProject.ae2_version}"
 
     // Development-only dependencies (Jade and JEI)
     modLocalRuntime "maven.modrinth:jade:11.11.1+forge"
