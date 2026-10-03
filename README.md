@@ -1,72 +1,80 @@
 # AE2 Pattern Counter
 
-**Monitor your Applied Energistics 2 pattern inventory in real-time!**
+<img src="common/src/main/resources/assets/ae2patterncounter/icon.png" alt="AE2 Pattern Counter icon" width="128" align="right">
 
-AE2 Pattern Counter adds specialized monitoring blocks that display the number of specific pattern types stored in your AE2 network. Perfect for tracking your automation setup at a glance.
+Monitor parts for **Applied Energistics 2** that show how many patterns of one type your ME network knows.
+Place one on a cable and read the count on its screen.
 
-## Features
+## Supported versions
 
-### Five Specialized Counters
-- **Crafting Pattern Counter** - Monitors standard crafting patterns
-- **Processing Pattern Counter** - Tracks processing patterns
-- **Fluid Pattern Counter** - Counts fluid crafting patterns
-- **Smithing Pattern Counter** - Displays smithing table patterns
-- **Stonecutting Pattern Counter** - Shows stonecutter patterns
+| Minecraft | Loader | Applied Energistics 2 | Counters | Branch |
+|---|---|---|---|---|
+| 1.21.1 | NeoForge | 19.2+ | all 5 | [`1.21.1`](https://github.com/Madgique/ae2_pattern_counter/tree/1.21.1) |
+| **1.20.1** | **Forge, Fabric** | **15.x** | **all 5** | **`1.20.1` (this branch)** |
+| 1.12.2 | Forge / Cleanroom | AE2 Unofficial Extended Life | Crafting, Processing, Fluid | [`1.12.2`](https://github.com/Madgique/ae2_pattern_counter/tree/1.12.2) |
 
-### Visual Feedback
-- **Real-time Count Display** - See your pattern count directly on the monitor face
-- **Power Status Indicator** - Bright texture when powered, dark when off
-- **Offline Detection** - "OFFLINE" message with smooth blinking animation when no channel is available
-- **Color-Coded** - Each pattern type has its own unique color scheme
+## Counters
 
-### Easy to Use
-- Place on any AE2 cable like other AE2 parts
-- Automatically connects to your ME network
-- No configuration needed - just place and monitor
-- Works on all block faces and orientations
+| Counter | Counts | Center item of the recipe |
+|---|---|---|
+| Crafting Pattern Counter | Crafting table patterns | Crafting Table |
+| Processing Pattern Counter | Processing (machine) patterns | Furnace |
+| Smithing Pattern Counter | Smithing table patterns | Smithing Table |
+| Stonecutting Pattern Counter | Stonecutter patterns | Stonecutter |
+| Fluid Pattern Counter | Patterns with a fluid input or output | Water Bucket |
 
-## Requirements
+## How to use
 
-### Forge
-- **Minecraft**: 1.20.1
-- **Forge**: 47.3.0+
-- **Applied Energistics 2**: Required
-- **Architectury API**: Required
+1. Craft a counter. All recipes use the same shape:
 
-### Fabric
-- **Minecraft**: 1.20.1
-- **Fabric Loader**: Latest
-- **Applied Energistics 2**: Required
-- **Architectury API**: Required
-- **Fabric API**: Required
+   ```
+   Quartz Glass   Storage Monitor   Quartz Glass
+   Blank Pattern  <center item>     Blank Pattern
+   Quartz Glass   Blank Pattern     Quartz Glass
+   ```
 
-## Installation
+2. Place the counter on an ME cable, like any AE2 part.
+3. Read the screen. The count updates within 5 seconds after a change.
 
-1. Download the mod JAR for your loader (Forge or Fabric)
-2. Install Applied Energistics 2 and Architectury API
-3. Place all mod files in your `mods` folder
-4. Launch Minecraft
+| Screen | Meaning |
+|---|---|
+| Icon and number | The part works. |
+| Red blinking `OFFLINE` | The part has power but no channel. |
+| Dark screen | The network has no power. |
 
-## Usage
+Use a wrench to turn the screen when the part is on a floor or a ceiling.
 
-1. Craft the pattern counter you want to monitor
-2. Place it on any AE2 cable or network block
-3. The counter will automatically display the number of patterns of that type in your network
-4. If "OFFLINE" appears, check your network channel allocation
+## Requirements (1.20.1)
 
-## Compatibility
+| Loader | Required mods |
+|---|---|
+| Forge 47.3+ | Applied Energistics 2, Architectury API |
+| Fabric | Applied Energistics 2, Architectury API, Fabric API |
 
-- **Multi-platform**: Works on both Forge and Fabric
-- **AE2 Addons**: Compatible with other AE2 addon mods
+## Building
+
+Use JDK 17.
+
+```bash
+./gradlew build
+```
+
+The jars are in `forge/build/libs/` (`*-forge.jar`) and `fabric/build/libs/` (`*-fabric.jar`).
+To test in game, use `./gradlew :forge:runClient` or `./gradlew :fabric:runClient`.
+
+## Releasing
+
+1. Set `mod_version` in `gradle.properties`.
+2. Replace the content of `CHANGELOG.md` with the notes of this version only.
+3. Push a tag `v<version>-1.20.1`:
+
+   ```bash
+   git tag v1.2.0-1.20.1 && git push origin v1.2.0-1.20.1
+   ```
+
+The **Publish** workflow builds the mod and uploads the Forge and Fabric jars to Modrinth and CurseForge.
+It needs these repository secrets: `MODRINTH_TOKEN`, `MODRINTH_PROJECT_ID`, `CURSEFORGE_TOKEN`, `CURSEFORGE_PROJECT_ID`.
 
 ## License
 
-This mod is licensed under LGPLv2.1
-
-## Support
-
-Found a bug or have a suggestion? Open an issue on the GitHub repository!
-
-## Credits
-
-Created by Madgique
+LGPLv2.1. Created by Madgique.

@@ -16,7 +16,7 @@ For project structure and configuration templates, refer to the Madgique Tickrat
 
 ### Default License
 - All Madgique mods use **LGPLv2.1** as the default license
-- Set `mod_license = LGPLv2.1` in `mod.info.gradle.properties` for new mods
+- Set `mod_license = LGPLv2.1` in `gradle.properties` for new mods
 
 ## Build System & Commands
 
@@ -33,7 +33,8 @@ This project uses Gradle with the Architectury plugin for multi-platform mod dev
 ### Development Setup
 - Java 17 required (configured via toolchain)
 - Uses official Mojang mappings
-- Mod version: 1.0 (defined in gradle.properties)
+- Mod version: `mod_version` in gradle.properties
+- AE2 15.4+ needs GuideME on Forge: it is a `modLocalRuntime` dependency for dev runs only
 - Target Minecraft: 1.20.1
 - Forge version: 47.3.0
 - Architectury version: 9.2.14
@@ -147,3 +148,13 @@ The project follows Architectury's multi-platform pattern:
   - AE2 Source Code: https://github.com/AppliedEnergistics/Applied-Energistics-2/tree/forge/1.20.1
 - Use these repositories to understand AE2's internal classes, structure, and proper lifecycle management
 - **Key Pattern**: Always use `GridHelper.onFirstTick()` for deferred grid node initialization to avoid chunk loading deadlocks
+
+### Textures and Models
+- Textures are 16x16; the placed part shows only pixels 2..13. The outer ring is the item icon frame.
+- Part models must not use `tintindex`: AE2 would tint the screen with the cable color (lavender on fluix cables).
+- Use `Locale.ROOT` for `toLowerCase` on identifiers.
+
+### Releasing
+- Push a tag `v<mod_version>-1.20.1`. `.github/workflows/publish.yml` builds and uploads the Forge and Fabric jars to Modrinth and CurseForge
+  (secrets: `MODRINTH_TOKEN`, `MODRINTH_PROJECT_ID`, `CURSEFORGE_TOKEN`, `CURSEFORGE_PROJECT_ID`).
+- Other branches: `1.21.1` (NeoForge only) and `1.12.2` (Forge, AE2 Unofficial Extended Life) have their own workflow and tag suffix.
