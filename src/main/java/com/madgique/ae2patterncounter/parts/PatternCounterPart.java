@@ -2,6 +2,7 @@ package com.madgique.ae2patterncounter.parts;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -46,7 +47,7 @@ public class PatternCounterPart extends AbstractPartDisplay implements IGridTick
         PROCESSING(p -> !p.isCraftable()),
         FLUID(Type::hasFluid);
 
-        public final String id = name().toLowerCase() + "_pattern_counter";
+        public final String id = name().toLowerCase(Locale.ROOT) + "_pattern_counter";
         public final ResourceLocation modelOff = new ResourceLocation(Tags.MOD_ID, "part/" + id + "_off");
         public final ResourceLocation modelOn = new ResourceLocation(Tags.MOD_ID, "part/" + id + "_on");
         private final IPartModel modelsOff = new PartModel(MODEL_BASE, modelOff, MODEL_STATUS_OFF);
