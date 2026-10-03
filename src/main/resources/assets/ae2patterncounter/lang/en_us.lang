@@ -1,0 +1,4 @@
+item.ae2patterncounter.crafting_pattern_counter.name=Crafting Pattern Counter Monitor
+item.ae2patterncounter.processing_pattern_counter.name=Processing Pattern Counter Monitor
+item.ae2patterncounter.fluid_pattern_counter.name=Fluid Pattern Counter Monitor
+itemGroup.ae2patterncounter=AE2 Pattern Counters

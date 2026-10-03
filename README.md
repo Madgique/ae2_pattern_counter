@@ -1,72 +1,47 @@
-# AE2 Pattern Counter
+# AE2 Pattern Counter (1.12.2)
 
 **Monitor your Applied Energistics 2 pattern inventory in real-time!**
 
-AE2 Pattern Counter adds specialized monitoring blocks that display the number of specific pattern types stored in your AE2 network. Perfect for tracking your automation setup at a glance.
+AE2 Pattern Counter adds monitor parts that display how many patterns of a given type are available in your AE2 network.
 
 ## Features
 
-### Five Specialized Counters
-- **Crafting Pattern Counter** - Monitors standard crafting patterns
-- **Processing Pattern Counter** - Tracks processing patterns
-- **Fluid Pattern Counter** - Counts fluid crafting patterns
-- **Smithing Pattern Counter** - Displays smithing table patterns
-- **Stonecutting Pattern Counter** - Shows stonecutter patterns
+### Three Specialized Counters
+- **Crafting Pattern Counter** - Counts crafting (workbench) patterns
+- **Processing Pattern Counter** - Counts processing patterns
+- **Fluid Pattern Counter** - Counts patterns that use fluids (requires [AE2 Fluid Crafting Rework](https://www.curseforge.com/minecraft/mc-mods/ae2-fluid-crafting-rework); shows 0 without it)
+
+Smithing and stonecutting counters exist only in the 1.20.1 version: those blocks do not exist in Minecraft 1.12.2.
 
 ### Visual Feedback
-- **Real-time Count Display** - See your pattern count directly on the monitor face
+- **Real-time Count Display** - The pattern count is drawn on the monitor face
 - **Power Status Indicator** - Bright texture when powered, dark when off
-- **Offline Detection** - "OFFLINE" message with smooth blinking animation when no channel is available
-- **Color-Coded** - Each pattern type has its own unique color scheme
+- **Offline Detection** - Blinking "OFFLINE" message when the part has no channel
+- **Color-Coded** - Each pattern type has its own color
 
 ### Easy to Use
 - Place on any AE2 cable like other AE2 parts
-- Automatically connects to your ME network
-- No configuration needed - just place and monitor
-- Works on all block faces and orientations
+- Rotate with a wrench when placed on the top or bottom of a block
+- No configuration needed
 
 ## Requirements
+- **Minecraft**: 1.12.2
+- **Forge**: 14.23.5.2847+
+- **Applied Energistics 2**: [AE2 Unofficial Extended Life](https://www.curseforge.com/minecraft/mc-mods/ae2-extended-life) (tested with v0.56.6; official rv6 should work but is untested)
+- **AE2 Fluid Crafting Rework**: Optional, needed for the Fluid Pattern Counter
 
-### Forge
-- **Minecraft**: 1.20.1
-- **Forge**: 47.3.0+
-- **Applied Energistics 2**: Required
-- **Architectury API**: Required
+## Building
+Java 25 runs Gradle; the mod itself targets Java 8 (modern syntax via Jabel).
 
-### Fabric
-- **Minecraft**: 1.20.1
-- **Fabric Loader**: Latest
-- **Applied Energistics 2**: Required
-- **Architectury API**: Required
-- **Fabric API**: Required
+```bash
+./gradlew build
+```
 
-## Installation
-
-1. Download the mod JAR for your loader (Forge or Fabric)
-2. Install Applied Energistics 2 and Architectury API
-3. Place all mod files in your `mods` folder
-4. Launch Minecraft
-
-## Usage
-
-1. Craft the pattern counter you want to monitor
-2. Place it on any AE2 cable or network block
-3. The counter will automatically display the number of patterns of that type in your network
-4. If "OFFLINE" appears, check your network channel allocation
-
-## Compatibility
-
-- **Multi-platform**: Works on both Forge and Fabric
-- **Optional Mods**: Compatible with Jade/HWYLA/WTHIT for additional tooltips
-- **AE2 Addons**: Compatible with other AE2 addon mods
+The jar is in `build/libs/`. Use `./gradlew runClient` to start a development client.
 
 ## License
 
 This mod is licensed under LGPLv2.1
-
-## Support
-
-Found a bug or have a suggestion? Open an issue on the GitHub repository!
 
 ## Credits
 

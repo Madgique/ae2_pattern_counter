@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QSQ",
+    "BCB",
+    "QBQ"
+  ],
+  "key": {
+    "Q": {"item": "appliedenergistics2:quartz_glass"},
+    "S": {"type": "appliedenergistics2:part", "part": "part.storage_monitor"},
+    "B": {"type": "appliedenergistics2:part", "part": "material.blank_pattern"},
+    "C": {"item": "minecraft:furnace"}
+  },
+  "result": {"item": "ae2patterncounter:processing_pattern_counter"}
+}
